@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Marcel Beck
-  description:
+  description: Install Hetzner Server from Rescue System with Ansible
   license: MIT
   min_ansible_version: 1.2
   # Below are all categories currently available. Just as with
