@@ -1,0 +1,20 @@
+---
+# defaults file for hetzner-install
+binary: /root/.oldroot/nfs/install/installimage
+boot_loader: grub
+raid:
+  active: 'no'
+  level: 1
+disks:
+  - sda
+image: /root/images/Ubuntu-1404-trusty-64-minimal.tar.gz
+partitions:
+  - /boot:ext2:512M
+  - lvm:vgos:30G
+  - lvm:vgsas:all
+logical_volumes:
+  - vgos:root:/:ext4:21G
+  - vgos:swap:swap:swap:4G
+  - vgos:tmp:/tmp:xfs:5G
+format_second: 'no'
+hostname: hostname.domain.tld

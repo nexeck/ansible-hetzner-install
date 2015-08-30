@@ -1,0 +1,27 @@
+---
+# tasks file for hetzner-install
+# Boot into Rescue
+# http://wiki.hetzner.de/index.php/Robot_Webservice#Boot-Konfiguration
+# http://wiki.hetzner.de/index.php/Robot_Webservice#Reset
+
+- name: Check if Rescue System
+  shell: hostname
+  register: is_rescue_hostname
+  failed_when: is_rescue_hostname.stdout.find('rescue') == -1
+
+- name: Create temp file for some later task
+  shell: mktemp --tmpdir tmp.XXXXXXXXXX.sh
+  register: tmp_file
+  when: is_rescue_hostname.stdout.find('rescue') != -1
+
+- name: Copy install script
+  template:
+    src: install.sh.j2
+    dest: "{{tmp_file.stdout}}"
+    mode: 0700
+  when: is_rescue_hostname.stdout.find('rescue') != -1
+
+- name: Install Host
+  shell: "{{tmp_file.stdout}}"
+  notify: reboot
+  when: is_rescue_hostname.stdout.find('rescue') != -1

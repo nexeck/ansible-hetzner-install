@@ -1,0 +1,4 @@
+---
+# handlers file for hetzner-install
+- name: reboot
+  shell: shutdown -r now

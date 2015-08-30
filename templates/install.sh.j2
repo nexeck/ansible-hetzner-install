@@ -1,0 +1,14 @@
+#!/bin/bash
+# {{ ansible_managed }}
+
+{{binary}} -a \
+             -b {{ boot_loader }} \
+             -r {{ raid.active }} \
+             -l {{ raid.level }} \
+             -d {{ disks | join(',') }} \
+             -f {{ format_second }} \
+             -i {{ image }} \
+             -p {{ partitions | join(',') }} \
+             -v {{ logical_volumes | join(',') }} \
+             -n {{ hostname }} \
+             -K {{ key_url}}
